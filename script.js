@@ -89,3 +89,12 @@ const displayMealDetails = mealDetails => {
     }
 
 }
+// first time load some data by default
+const defaultLoading = async (name) => {
+    const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${name}`;
+    const response = await fetch(url);
+    const meals = await response.json();
+    // passing response object to a function
+    displayMeals(meals.meals);
+}
+defaultLoading("");

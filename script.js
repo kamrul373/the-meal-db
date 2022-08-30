@@ -4,10 +4,10 @@ const searchMeal = async () => {
 
     // validation
     if (mealName === "") {
-        errorMessage("block");
+        errorMessage(mealName);
     } else {
         // validation
-        errorMessage("none");
+        errorMessage(mealName);
         // spinner during searching
         spinner();
         // fetching
@@ -26,16 +26,22 @@ const displayMeals = meals => {
     const mealsContainer = document.getElementById("meals");
     // cleaning before new elements appearing
     mealsContainer.innerHTML = "";
-    // looping meal data
-    meals.forEach(meal => {
-        // destructuring meal data
-        const { idMeal: id, strMeal: mealName, strMealThumb: thumb, strArea: area, strInstructions: instruction } = meal;
-        // creating new element
-        const div = document.createElement("div");
-        div.classList.add("col");
+    // checking if no result found 
+    if (meals === null) {
+        mealsContainer.innerHTML = `<div class="col-md-12"><h2 class="text-center text-warning  my-4">No meals found , please try by other meal name !</h2></div>`;
+    } else {
+        // number of meals found
+        mealsContainer.innerHTML = `<div class="col-md-12"><h2 class="text-center  my-4">Found ${meals.length} meals</h2></div>`;
+        // looping meal data
+        meals.forEach(meal => {
+            // destructuring meal data
+            const { idMeal: id, strMeal: mealName, strMealThumb: thumb, strArea: area, strInstructions: instruction } = meal;
+            // creating new element
+            const div = document.createElement("div");
+            div.classList.add("col");
 
-        // searching results
-        div.innerHTML = `
+            // searching results
+            div.innerHTML += `
         <div class="card">
             <img src="${thumb}" class="card-img-top" alt="${mealName}">
             <div class="card-body">
@@ -46,10 +52,12 @@ const displayMeals = meals => {
             </div>
         </div>
         `
-        mealsContainer.appendChild(div);
+            mealsContainer.appendChild(div);
 
 
-    })
+        })
+    }
+
 
 }
 // loading single meal details
@@ -98,3 +106,4 @@ const defaultLoading = async (name) => {
     displayMeals(meals.meals);
 }
 defaultLoading("");
+

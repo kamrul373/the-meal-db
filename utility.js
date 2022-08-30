@@ -1,9 +1,9 @@
 // error message display function
-function errorMessage(display) {
-    if (display == "block") {
-        document.getElementById("error").innerHTML = `<div class="alert alert-warning" role="alert">Please type a food name !</div>`
+function errorMessage(mealName) {
+    if (mealName == "") {
+        document.getElementById("error").classList.remove("d-none");
     } else {
-        document.getElementById("error").style.display = "none"
+        document.getElementById("error").classList.add("d-none");
     }
 }
 // spinner display function

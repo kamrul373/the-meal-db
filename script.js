@@ -52,6 +52,7 @@ const displayMeals = meals => {
     })
 
 }
+// loading single meal details
 const loadmealdetails = id => {
     const url = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
     fetch(url)
@@ -59,10 +60,11 @@ const loadmealdetails = id => {
         .then(mealDetails => displayMealDetails(mealDetails.meals[0]));
 
 }
+// displaying single meal
 const displayMealDetails = mealDetails => {
-    console.log(mealDetails);
     const mealDetailsContainer = document.getElementById("meal-details-container");
     const { strMeal: mealName, strMealThumb: thumb, strInstructions: instruction } = mealDetails;
+
     mealDetailsContainer.innerHTML = `
         <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">${mealName}</h5>
@@ -78,19 +80,12 @@ const displayMealDetails = mealDetails => {
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         </div>
     `
-    let ingredients = getIngredients(mealDetails);
+    const ingredients = getIngredients(mealDetails);
     const Ingredientscontainer = document.getElementById("ingredients")
     for (const ingredient of ingredients) {
         const li = document.createElement("li");
         li.innerText = ingredient;
         Ingredientscontainer.appendChild(li);
     }
+
 }
-
-/*
-
-<div class="col">
-                    
-                </div>
-
-*/
